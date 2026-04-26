@@ -13,6 +13,7 @@ npx skills add umit/skills --skill <skill-name>
 | Skill | What it does |
 | --- | --- |
 | [`async-profiler`](skills/async-profiler) | JVM profiling with async-profiler: CPU, allocation, lock, wall-clock, hardware counters. Flame graphs and JFR. |
+| [`jmh`](skills/jmh) | Trustworthy Java microbenchmarks with JMH — DCE/constant-folding pre-flight checker, Maven & Gradle setup, mode/state/profiler guidance, jmh.morethan.io analysis. |
 
 ## Anatomy
 
