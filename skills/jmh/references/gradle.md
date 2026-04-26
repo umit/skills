@@ -58,11 +58,32 @@ jmh {
 
 ## Source set
 
-By default the plugin creates a `jmh` source set:
+By default the plugin creates a `jmh` source set at `src/jmh/java`. This collection prefers placing benchmarks under **`src/main/jmh`** instead — keeps them visually adjacent to `src/main/java` while still isolated from prod compilation:
 
 ```
-src/jmh/java/...        ← @Benchmark classes
-src/jmh/resources/...
+src/main/java/...       ← production code
+src/main/jmh/...        ← @Benchmark classes (override below)
+```
+
+Override the source directory:
+
+```groovy
+sourceSets {
+    jmh {
+        java.srcDirs = ['src/main/jmh']
+        resources.srcDirs = ['src/main/jmh/resources']
+    }
+}
+```
+
+Kotlin DSL:
+```kotlin
+sourceSets {
+    named("jmh") {
+        java.setSrcDirs(listOf("src/main/jmh"))
+        resources.setSrcDirs(listOf("src/main/jmh/resources"))
+    }
+}
 ```
 
 Benchmarks have access to `main` classpath automatically. Tests are not included; if you need test code, add:
@@ -70,6 +91,8 @@ Benchmarks have access to `main` classpath automatically. Tests are not included
 ```groovy
 sourceSets.jmh.java.srcDirs += sourceSets.test.java.srcDirs
 ```
+
+> Note: `src/main/jmh` is a project convention, not the Gradle plugin default. The `jmh` source set itself is still separate from `main` — benchmark code does **not** ship in the production jar.
 
 ## Run
 
